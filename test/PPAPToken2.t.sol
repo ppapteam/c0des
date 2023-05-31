@@ -59,7 +59,7 @@ contract PPAPTokenTest is Test {
         startBlock = block.number;
 
         owner = address(0);
-        treasury = address(0x6c5445D0C0B91eBDdDc38d8ec58dE6062E354d2C);
+        treasury = address(0xC5cAd10E496D0F3dBd3b73742B8b3a9A92cA4DcA);
         alice = address(100);
         bob = address(101);
 

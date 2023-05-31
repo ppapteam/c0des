@@ -40,7 +40,7 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
     uint256 public sellBPS = 600; // 6.00%
 
     constructor() {
-        treasury = address(0x6c5445D0C0B91eBDdDc38d8ec58dE6062E354d2C);
+        treasury = address(0xC5cAd10E496D0F3dBd3b73742B8b3a9A92cA4DcA);
         uint256 expectedTotalSupply = 369_000_000_000 ether;
         whitelisted[treasury] = true;
         whitelisted[address(this)] = true;
