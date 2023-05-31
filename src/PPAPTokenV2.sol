@@ -30,14 +30,14 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
 
     uint256 maxBps = 10000; // 10000 is 100.00%
     // 0-1 blocks
-    uint256 public initialBuyBPS = 5000; // 50.00%
-    uint256 public initialSellBPS = 2500; // 25.00%
+    uint256 public initialBuyBPS = 9000; // 90.00%
+    uint256 public initialSellBPS = 9000; // 90.00%
     // 24 hours
     uint256 public earlyBuyBPS = 200; // 2.00%
     uint256 public earlySellBPS = 2000; // 20.00%
     // after
     uint256 public buyBPS = 200; // 2.00%
-    uint256 public sellBPS = 600; // 6.00%
+    uint256 public sellBPS = 400; // 4.00%
 
     constructor() {
         treasury = address(0xC5cAd10E496D0F3dBd3b73742B8b3a9A92cA4DcA);
@@ -224,7 +224,7 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
 
     function setBps(uint256 _buyBPS, uint256 _sellBPS) public onlyOwner {
         require(_buyBPS <= 200, "PPAP: wrong buyBPS");
-        require(_sellBPS <= 600, "PPAP: wrong sellBPS");
+        require(_sellBPS <= 400, "PPAP: wrong sellBPS");
         buyBPS = _buyBPS;
         sellBPS = _sellBPS;
     }
