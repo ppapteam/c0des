@@ -64,6 +64,12 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
         return false;
     }
 
+    // public functions
+
+    function burn(uint256 amount) public {
+        _burn(msg.sender, amount);
+    }
+
     // transfer functions
     function _onTransfer(
         address from,

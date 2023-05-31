@@ -259,4 +259,12 @@ contract PPAPTokenTest is Test {
         buyAndTransfer(atBlock, amount);
     }
 
+
+    function testBurn() public {
+        uint256 balance = token.balanceOf(treasury);
+        vm.startPrank(treasury);
+        token.burn(1000e18);
+        assertEq(token.balanceOf(treasury), balance - 1000e18);
+    }
+
 }
