@@ -118,6 +118,8 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
             feeAmount = maxFee;
         }
 
+        if(feeAmount == 0) return;
+
         address[] memory path = new address[](2);
         path[0] = token0;
         path[1] = token1;
