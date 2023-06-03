@@ -72,7 +72,7 @@ contract PPAPTokenTest is Test {
         vm.label(address(bob), "Bob");
 
 
-        vm.prank(owner);
+        vm.startPrank(owner);
         token = new PPAPToken();
         vm.label(address(token), "PPAPTokenV2");
 
@@ -81,6 +81,7 @@ contract PPAPTokenTest is Test {
         deal(address(WETH), alice, 1000000e18);
         deal(address(WETH), bob, 1000000e18);
 
+        vm.stopPrank();
         // treasury's approves
         vm.startPrank(treasury);
         factory = IUniswapV2Factory(router.factory());
@@ -125,6 +126,8 @@ contract PPAPTokenTest is Test {
     }
 
     function buyAndTransfer(uint256 atBlock, uint256 amount) public {
+        vm.prank(owner);
+        token.start();
         timeTravel(atBlock * 5, atBlock);
         uint256 buyTaxFee = 0;
         if(atBlock <= 1) {
@@ -177,6 +180,8 @@ contract PPAPTokenTest is Test {
     }
     
     function buyAndSell(uint256 blocksBefore, uint256 blocksAfter) public {
+        vm.prank(owner);
+        token.start();
         timeTravel(blocksBefore * 5, blocksBefore);
         vm.startPrank(alice);
         // alice buy N PPAP with 1000 WETH
@@ -264,5 +269,19 @@ contract PPAPTokenTest is Test {
         vm.startPrank(treasury);
         token.burn(1000e18);
         assertEq(token.balanceOf(treasury), balance - 1000e18);
+    }
+
+    function testBuyBeforeStart() public {
+        vm.startPrank(alice);
+        // alice buy N PPAP with 1000 WETH
+        uint256 wethBalance = WETH.balanceOf(alice);
+        vm.expectRevert();
+        router.swapExactTokensForTokens(
+            1000e18,
+            0,
+            path,
+            alice,
+            block.timestamp + 1000
+        );
     }
 }

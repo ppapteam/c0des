@@ -207,11 +207,13 @@ contract PPAPToken is ERC20("PPAP Token", "$PPAP", 18), Owned(msg.sender) {
     }
 
     // Only owner functions
+    function start() public onlyOwner {
+        require(startedIn == 0, "PPAP: already started");
+        startedIn = block.number;
+        startedAt = block.timestamp;
+    }
+
     function setUni(address _router, address _pair) public onlyOwner {
-        if(startedIn == 0) {
-            startedIn = block.number;
-            startedAt = block.timestamp;
-        }
         router = IUniswapV2Router02(_router);
         pair = IUniswapV2Pair(_pair);
         (address token0, address token1) = (pair.token0(), pair.token1());
